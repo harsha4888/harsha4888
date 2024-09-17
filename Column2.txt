@@ -1,12 +1,15 @@
 Column2 =
 VAR MaxMonth = CALCULATE(MAX(MONTH('Viz Payments'[DatePay])), ALL('Viz Payments'))
+VAR MaxYear = CALCULATE(MAX(YEAR('Viz Payments'[DatePay])), ALL('Viz Payments'))
 VAR CurrentMonth = MONTH(TODAY())
+VAR CurrentYear = YEAR(TODAY())
 VAR LastMonth = IF(CurrentMonth = 1, 12, CurrentMonth - 1)
-VAR IsCurrentMonth = YEAR('Viz Payments'[DatePay]) = YEAR(TODAY()) 
+VAR LastMonthYear = IF(CurrentMonth = 1, CurrentYear - 1, CurrentYear)
+VAR IsCurrentMonth = YEAR('Viz Payments'[DatePay]) = CurrentYear 
                       && MONTH('Viz Payments'[DatePay]) = MaxMonth
-VAR IsLastMonth = YEAR('Viz Payments'[DatePay]) = YEAR(TODAY()) 
+VAR IsLastMonth = YEAR('Viz Payments'[DatePay]) = LastMonthYear 
                    && MONTH('Viz Payments'[DatePay]) = LastMonth
-                   || YEAR('Viz Payments'[DatePay]) = YEAR(TODAY()) - 1 
+                   || YEAR('Viz Payments'[DatePay]) = CurrentYear - 1 
                    && MaxMonth = 1 
                    && MONTH('Viz Payments'[DatePay]) = 12
 
@@ -20,4 +23,3 @@ IF(
         "Older Month"
     )
 )
-
