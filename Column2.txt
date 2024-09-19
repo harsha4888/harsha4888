@@ -1,6 +1,1 @@
-Column = if('Viz Expenses'[quater]=max('Viz Expenses'[quater]),"Current Quarter",
-  if(('Viz Expenses'[maxquater])<>"1" && 'Viz Expenses'[quater]=max('Viz Expenses'[quater])-1,"Last Quarter",
-  if('Viz Expenses'[quater]=max('Viz Expenses'[quater])-7,"Last Quarter","")
-  )
-  )
-
+quater = if([date_filtered]=0,right(year('Viz Expenses'[Created Date]),2)&QUARTER('Viz Expenses'[Created Date]),if([date_filtered]=1,right(year('Viz Expenses'[Payment Date]),2)&QUARTER('Viz Expenses'[Payment Date]),right(year('Viz Expenses'[Transaction Date]),2)&QUARTER('Viz Expenses'[Transaction Date])))
