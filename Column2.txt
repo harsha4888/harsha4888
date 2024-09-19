@@ -1,10 +1,1 @@
-quatern = 
-IF(
-    [date_filtered] = 0,
-    RIGHT(YEAR('Viz Expenses'[Created Date]), 2) & QUARTER('Viz Expenses'[Created Date]),
-    IF(
-        [date_filtered] = 1,
-        RIGHT(YEAR('Viz Expenses'[Payment Date]), 2) & QUARTER('Viz Expenses'[Payment Date]),
-        RIGHT(YEAR('Viz Expenses'[Transaction Date]), 2) & QUARTER('Viz Expenses'[Transaction Date])
-    )
-)
+quatern 2 = RANK(ORDERBY('Viz Expenses'[quatern])) 
