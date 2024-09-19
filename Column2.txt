@@ -1,34 +1,6 @@
-Column 2 = 
-VAR CurrentQuarter = MAX('Viz Expenses'[quater])  -- Get the current (latest) quarter in 'YYQX' format
-VAR CurrentYear = LEFT(CurrentQuarter, 2)         -- Extract the 'YY' part from 'YYQX'
-VAR CurrentQtr = MID(CurrentQuarter, 4, 1)        -- Extract the 'Q' part from 'YYQX'
-
--- Calculate the previous quarter (Last Quarter)
-VAR LastQuarter =
-    IF(
-        CurrentQtr = "1", 
-        FORMAT(VALUE(CurrentYear) - 1, "00") & "Q4",  -- If it's Q1, subtract 1 from the year and set the quarter to Q4
-        CurrentYear & "Q" & FORMAT(VALUE(CurrentQtr) - 1, "0")  -- For other quarters, subtract 1 from the quarter
-    )
-RETURN
-    IF('Viz Expenses'[quater] = CurrentQuarter, "Current Quarter",
-        IF('Viz Expenses'[quater] = LastQuarter, "Last Quarter", "")
-    )
-Column 3 = 
-VAR CurrentQuarter = MAX('Viz Expenses'[quater])  -- Get the current (latest) quarter
-VAR CurrentYear = LEFT(CurrentQuarter, 2)         -- Extract the year part from the quarter
-VAR CurrentQtr = MID(CurrentQuarter, 4, 1)        -- Extract the quarter part
-
--- Calculate the previous quarter (last quarter)
-VAR LastQuarter = 
-    IF(
-        CurrentQtr = "1", 
-        FORMAT(VALUE(CurrentYear) - 1, "00") & "Q4",  -- If current is Q1, go to previous year Q4
-        CurrentYear & "Q" & FORMAT(VALUE(CurrentQtr) - 1, "0")  -- Otherwise, subtract 1 from the quarter and format as text
-    )
-RETURN
-    IF('Viz Expenses'[quater] = CurrentQuarter, "Current Quarter",
-        IF('Viz Expenses'[quater] = LastQuarter, "Last Quarter", "")
-    )
-
+Column = if('Viz Expenses'[quater]=max('Viz Expenses'[quater]),"Current Quarter",
+  if(('Viz Expenses'[maxquater])<>"1" && 'Viz Expenses'[quater]=max('Viz Expenses'[quater])-1,"Last Quarter",
+  if('Viz Expenses'[quater]=max('Viz Expenses'[quater])-7,"Last Quarter","")
+  )
+  )
 
