@@ -1,6 +1,13 @@
-Column 2 = if('Viz Expenses'[quater 2]=max('Viz Expenses'[quater 2]),"Current Quarter",
- 
-  if('Viz Expenses'[quater 2]=max('Viz Expenses'[quater 2])-1,"Last Quarter","")
-  )
-  
+Column 3 = 
+VAR CurrentQuarter = MAX('Viz Expenses'[quater])
+VAR LastQuarter = 
+    IF(
+        LEFT(CurrentQuarter, 2) = LEFT(MAX('Viz Expenses'[quater]), 2),
+        LEFT(CurrentQuarter, 2) & "Q" & (MID(CurrentQuarter, 4, 1) - 1),
+        LEFT(CurrentQuarter, 2) - 1 & "Q4"
+    )
+RETURN
+    IF('Viz Expenses'[quater] = CurrentQuarter, "Current Quarter",
+        IF('Viz Expenses'[quater] = LastQuarter, "Last Quarter", "")
+    )
 
