@@ -1,4 +1,4 @@
-Column 2 = 
+Column 3 = 
 VAR CurrentQuarter = MAX('Viz Expenses'[quater])  -- Get the current (latest) quarter
 VAR CurrentYear = LEFT(CurrentQuarter, 2)         -- Extract the year part from the quarter
 VAR CurrentQtr = MID(CurrentQuarter, 4, 1)        -- Extract the quarter part
@@ -8,10 +8,11 @@ VAR LastQuarter =
     IF(
         CurrentQtr = "1", 
         FORMAT(VALUE(CurrentYear) - 1, "00") & "Q4",  -- If current is Q1, go to previous year Q4
-        CurrentYear & "Q" & VALUE(CurrentQtr) - 1     -- Otherwise, just subtract 1 from the quarter
+        CurrentYear & "Q" & FORMAT(VALUE(CurrentQtr) - 1, "0")  -- Otherwise, subtract 1 from the quarter and format as text
     )
 RETURN
     IF('Viz Expenses'[quater] = CurrentQuarter, "Current Quarter",
         IF('Viz Expenses'[quater] = LastQuarter, "Last Quarter", "")
     )
+
 
