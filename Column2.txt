@@ -1,4 +1,12 @@
-Column 2 = if('Viz Expenses'[quater 2]=max('Viz Expenses'[quater 2]),"Current Quarter",
- 
-  if('Viz Expenses'[quater 2]=max('Viz Expenses'[quater 2])-1,"Last Quarter","")
-  )
+Column = 
+VAR MaxQuater = MAX('Viz Expenses'[quater])
+RETURN
+    IF(
+        'Viz Expenses'[quater] = MaxQuater, 
+        "Current Quarter",
+        IF(
+            'Viz Expenses'[quater] = MaxQuater - 1, 
+            "Last Quarter",
+            ""
+        )
+    )
