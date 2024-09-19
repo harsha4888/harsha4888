@@ -1,11 +1,6 @@
-quater = 
-VAR SelectedDate = 
-    SWITCH(
-        TRUE(),
-        [date_filtered] = 0, MIN('Viz Expenses'[Created Date]),
-        [date_filtered] = 1, MIN('Viz Expenses'[Payment Date]),
-        MIN('Viz Expenses'[Transaction Date])
-    )
-RETURN
-    RIGHT(YEAR(SelectedDate), 2) & "Q" & QUARTER(SelectedDate)
+Column 2 = if('Viz Expenses'[quater 2]=max('Viz Expenses'[quater 2]),"Current Quarter",
+ 
+  if('Viz Expenses'[quater 2]=max('Viz Expenses'[quater 2])-1,"Last Quarter","")
+  )
+  
 
