@@ -1,7 +1,11 @@
-Selected Date = 
-SWITCH(
-    TRUE(),
-    [date_filtered] = 0, 'Viz Expenses'[Created Date],
-    [date_filtered] = 1, 'Viz Expenses'[Payment Date],
-    [date_filtered] = 2, 'Viz Expenses'[Transaction Date]
-)
+quater = 
+VAR SelectedDate = 
+    SWITCH(
+        TRUE(),
+        [date_filtered] = 0, MIN('Viz Expenses'[Created Date]),
+        [date_filtered] = 1, MIN('Viz Expenses'[Payment Date]),
+        MIN('Viz Expenses'[Transaction Date])
+    )
+RETURN
+    RIGHT(YEAR(SelectedDate), 2) & "Q" & QUARTER(SelectedDate)
+
