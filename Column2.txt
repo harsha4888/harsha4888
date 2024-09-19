@@ -1,9 +1,13 @@
-Quart Label Rank = 
-VAR MaxQuartLabel = MAXX(ALL('Viz Expenses'), 'Viz Expenses'[Quart Label])
+Quart Label = 
+VAR MaxQuart = MAXX(ALL('Viz Expenses'[Quart]), 'Viz Expenses'[Quart])
+VAR LastQuart = MaxQuart - 1
 RETURN
-    SWITCH(
-        TRUE(),
-        'Viz Expenses'[Quart Label] = "Current Quarter", 1,
-        'Viz Expenses'[Quart Label] = "Last Quarter", 2,
-        3
+    IF(
+        'Viz Expenses'[Quart] = MaxQuart, 
+        "Current Quarter",
+        IF(
+            'Viz Expenses'[Quart] = LastQuart, 
+            "Last Quarter", 
+            ""
+        )
     )
