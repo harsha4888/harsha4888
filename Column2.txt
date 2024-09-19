@@ -1,1 +1,5 @@
-quatern 2 = RANK(ORDERBY('Viz Expenses'[quatern])) 
+Column 2 = 
+if('Viz Expenses'[quater 2] = max('Viz Expenses'[quater 2]), "Current Quarter",
+ 
+  if('Viz Expenses'[quater 2] = max('Viz Expenses'[quater 2]) - 1, "Last Quarter", "")
+)
