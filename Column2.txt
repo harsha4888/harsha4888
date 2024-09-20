@@ -1,38 +1,29 @@
+
+
 Quarter1 = 
 IF(
-    [date_filtered] = 0,
-    YEAR('Viz Expenses'[Created Date]) & "Q" & QUARTER('Viz Expenses'[Created Date]),
+    [date_filtered] = 0, 
+    YEAR('Viz Expenses'[Created Date]) * 10 + QUARTER('Viz Expenses'[Created Date]),
     IF(
-        [date_filtered] = 1,
-        YEAR('Viz Expenses'[Payment Date]) & "Q" & QUARTER('Viz Expenses'[Payment Date]),
-        YEAR('Viz Expenses'[Transaction Date]) & "Q" & QUARTER('Viz Expenses'[Transaction Date])
+        [date_filtered] = 1, 
+        YEAR('Viz Expenses'[Payment Date]) * 10 + QUARTER('Viz Expenses'[Payment Date]),
+        YEAR('Viz Expenses'[Transaction Date]) * 10 + QUARTER('Viz Expenses'[Transaction Date])
     )
+)
+
+Quarter1 Rank = 
+RANKX(
+    ALL('Viz Expenses'),  -- Rank across all records
+    'Viz Expenses'[Quarter1],  -- Rank based on the Quarter1 column
+    ,  -- No specific value for tie-breaking
+    ASC,  -- Rank in ascending order (older quarters first)
+    DENSE  -- Use DENSE ranking (no gaps in ranking if there are ties)
 )
 
 Current or Last Quarter = 
 VAR CurrentYear = YEAR(TODAY())
 VAR CurrentQuarter = QUARTER(TODAY())
-VAR MaxQuarter = CurrentYear * 10 + CurrentQuarter  -- Encode as YYYYQ format
-VAR LastQuarter = IF(CurrentQuarter = 1, (CurrentYear - 1) * 10 + 4, CurrentYear * 10 + CurrentQuarter - 1)
-VAR YearPart = VALUE(LEFT('Viz Expenses'[Quarter1], 4))  -- Extract the year
-VAR QuarterPart = VALUE(RIGHT('Viz Expenses'[Quarter1], 1))  -- Extract the quarter number
-VAR QuartEncoded = YearPart * 10 + QuarterPart  -- Encode in YYYYQ format
-RETURN
-    IF(
-        QuartEncoded = MaxQuarter, 
-        "Current Quarter",
-        IF(
-            QuartEncoded = LastQuarter, 
-            "Last Quarter", 
-            BLANK()
-        )
-    )
-
-
-Current or Last Quarter = 
-VAR CurrentYear = YEAR(TODAY())
-VAR CurrentQuarter = QUARTER(TODAY())
-VAR MaxQuarter = CurrentYear * 10 + CurrentQuarter  -- Encode as YYYYQ format
+VAR MaxQuarter = CurrentYear * 10 + CurrentQuarter  -- Encode as YYYYQ format (without "Q")
 VAR LastQuarter = IF(CurrentQuarter = 1, (CurrentYear - 1) * 10 + 4, CurrentYear * 10 + CurrentQuarter - 1)
 VAR QuartEncoded = VALUE(LEFT('Viz Expenses'[Quarter1], 4)) * 10 + VALUE(RIGHT('Viz Expenses'[Quarter1], 1))
 RETURN
@@ -45,8 +36,6 @@ RETURN
             BLANK()
         )
     )
-
-
 
 Current or Last Quarter Rank = 
 SWITCH(
