@@ -23,9 +23,10 @@ RANKX(
 Current or Last Quarter = 
 VAR CurrentYear = YEAR(TODAY())
 VAR CurrentQuarter = QUARTER(TODAY())
-VAR MaxQuarter = CurrentYear * 10 + CurrentQuarter  -- Encode as YYYYQ format (without "Q")
-VAR LastQuarter = IF(CurrentQuarter = 1, (CurrentYear - 1) * 10 + 4, CurrentYear * 10 + CurrentQuarter - 1)
-VAR QuartEncoded = VALUE(LEFT('Viz Expenses'[Quarter1], 4)) * 10 + VALUE(RIGHT('Viz Expenses'[Quarter1], 1))
+VAR MaxQuarter = CurrentYear * 10 + CurrentQuarter  -- Current quarter in YYYYQ format
+VAR LastQuarter = IF(CurrentQuarter = 1, (CurrentYear - 1) * 10 + 4, CurrentYear * 10 + CurrentQuarter - 1)  -- Last quarter in YYYYQ format
+VAR QuartEncoded = 'Viz Expenses'[Quarter1]  -- Using Quarter1 directly
+
 RETURN
     IF(
         QuartEncoded = MaxQuarter, 
@@ -36,6 +37,7 @@ RETURN
             BLANK()
         )
     )
+
 
 Current or Last Quarter Rank = 
 SWITCH(
