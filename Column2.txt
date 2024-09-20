@@ -1,4 +1,13 @@
 
 
-Column 2 = if('Viz Expenses'[quater 2]=max('Viz Expenses'[quater 2]),"Current Quarter",
+Current or Last Quarter from Rank = 
+IF(
+    'Viz Expenses'[Quarter1 Rank] = MAX('Viz Expenses'[Quarter1 Rank]), 
+    "Current Quarter", 
+    IF(
+        'Viz Expenses'[Quarter1 Rank] = MAX('Viz Expenses'[Quarter1 Rank]) - 1, 
+        "Last Quarter", 
+        BLANK()  -- Return blank for other values
+    )
+)
 
