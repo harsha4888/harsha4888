@@ -1,12 +1,3 @@
 
 
-Current or Last Quarter from Rank = 
-IF(
-    'Viz Expenses'[Quarter1 Rank] = MAX('Viz Expenses'[Quarter1 Rank]), 
-    "Current Quarter", 
-    IF(
-        'Viz Expenses'[Quarter1 Rank] = MAX('Viz Expenses'[Quarter1 Rank]) - 1, 
-        "Last Quarter", 
-        BLANK()  -- Return blank for other values
-    )
-)
+quater = if([date_filtered]=0,right(year('Viz Expenses'[Created Date]),2)&QUARTER('Viz Expenses'[Created Date]),if([date_filtered]=1,right(year('Viz Expenses'[Payment Date]),2)&QUARTER('Viz Expenses'[Payment Date]),right(year('Viz Expenses'[Transaction Date]),2)&QUARTER('Viz Expenses'[Transaction Date])))
