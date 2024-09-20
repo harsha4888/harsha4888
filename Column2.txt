@@ -20,23 +20,20 @@ RANKX(
     DENSE  -- Use DENSE ranking (no gaps in ranking if there are ties)
 )
 
-Current or Last Quarter = 
-VAR CurrentYear = YEAR(TODAY())
-VAR CurrentQuarter = QUARTER(TODAY())
-VAR MaxQuarter = CurrentYear * 10 + CurrentQuarter  -- Current quarter in YYYYQ format
-VAR LastQuarter = IF(CurrentQuarter = 1, (CurrentYear - 1) * 10 + 4, CurrentYear * 10 + CurrentQuarter - 1)  -- Last quarter in YYYYQ format
-VAR QuartEncoded = 'Viz Expenses'[Quarter1]  -- Using Quarter1 directly
-
+Current or Last Quarter Label = 
+VAR MaxQuart = MAXX(ALL('Viz Expenses'), 'Viz Expenses'[Quarter1])  -- Get the maximum value from Quarter1
+VAR LastQuart = MaxQuart - 1  -- Calculate the last quarter value
 RETURN
     IF(
-        QuartEncoded = MaxQuarter, 
+        'Viz Expenses'[Quarter1] = MaxQuart, 
         "Current Quarter",
         IF(
-            QuartEncoded = LastQuarter, 
+            'Viz Expenses'[Quarter1] = LastQuart, 
             "Last Quarter", 
-            BLANK()
+            BLANK()  -- Return blank for other values
         )
     )
+
 
 
 Current or Last Quarter Rank = 
