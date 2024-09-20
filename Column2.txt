@@ -37,20 +37,6 @@ RETURN
 
 
 
-Current or Last Quarter = 
-VAR MaxQuarter = MAXX(ALL('Viz Expenses'), 'Viz Expenses'[Quarter1])
-VAR LastQuarter = MaxQuarter - 1
-RETURN
-    IF(
-        'Viz Expenses'[Quarter1] = MaxQuarter, 
-        "Current Quarter",
-        IF(
-            'Viz Expenses'[Quarter1] = LastQuarter, 
-            "Last Quarter", 
-            BLANK()
-        )
-    )
-
 Current or Last Quarter Rank = 
 SWITCH(
     TRUE(),
@@ -58,5 +44,4 @@ SWITCH(
     'Viz Expenses'[Current or Last Quarter] = "Last Quarter", 2,
     BLANK()
 )
-
 
