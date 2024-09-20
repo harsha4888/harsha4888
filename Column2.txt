@@ -1,46 +1,4 @@
 
 
-Quarter1 = 
-IF(
-    [date_filtered] = 0, 
-    YEAR('Viz Expenses'[Created Date]) * 10 + QUARTER('Viz Expenses'[Created Date]),
-    IF(
-        [date_filtered] = 1, 
-        YEAR('Viz Expenses'[Payment Date]) * 10 + QUARTER('Viz Expenses'[Payment Date]),
-        YEAR('Viz Expenses'[Transaction Date]) * 10 + QUARTER('Viz Expenses'[Transaction Date])
-    )
-)
-
-Quarter1 Rank = 
-RANKX(
-    ALL('Viz Expenses'),  -- Rank across all records
-    'Viz Expenses'[Quarter1],  -- Rank based on the Quarter1 column
-    ,  -- No specific value for tie-breaking
-    ASC,  -- Rank in ascending order (older quarters first)
-    DENSE  -- Use DENSE ranking (no gaps in ranking if there are ties)
-)
-
-Current or Last Quarter Label = 
-VAR MaxQuart = MAXX(ALL('Viz Expenses'), 'Viz Expenses'[Quarter1])  -- Get the maximum value from Quarter1
-VAR LastQuart = MaxQuart - 1  -- Calculate the last quarter value
-RETURN
-    IF(
-        'Viz Expenses'[Quarter1] = MaxQuart, 
-        "Current Quarter",
-        IF(
-            'Viz Expenses'[Quarter1] = LastQuart, 
-            "Last Quarter", 
-            BLANK()  -- Return blank for other values
-        )
-    )
-
-
-
-Current or Last Quarter Rank = 
-SWITCH(
-    TRUE(),
-    'Viz Expenses'[Current or Last Quarter] = "Current Quarter", 1,
-    'Viz Expenses'[Current or Last Quarter] = "Last Quarter", 2,
-    BLANK()
-)
+Column 2 = if('Viz Expenses'[quater 2]=max('Viz Expenses'[quater 2]),"Current Quarter",
 
