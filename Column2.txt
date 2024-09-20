@@ -1,13 +1,20 @@
-Quart Label = 
-VAR MaxQuart = MAXX(ALL('Viz Expenses'[Quart]), 'Viz Expenses'[Quart])
-VAR LastQuart = MaxQuart - 1
-RETURN
+Quarter1 = 
+IF(
+    [date_filtered] = 0,
+    YEAR('Viz Expenses'[Created Date]) & "Q" & QUARTER('Viz Expenses'[Created Date]),
     IF(
-        'Viz Expenses'[Quart] = MaxQuart, 
-        "Current Quarter",
-        IF(
-            'Viz Expenses'[Quart] = LastQuart, 
-            "Last Quarter", 
-            ""
-        )
+        [date_filtered] = 1,
+        YEAR('Viz Expenses'[Payment Date]) & "Q" & QUARTER('Viz Expenses'[Payment Date]),
+        YEAR('Viz Expenses'[Transaction Date]) & "Q" & QUARTER('Viz Expenses'[Transaction Date])
     )
+)
+
+Quarter1 Rank = 
+RANKX(
+    ALL('Viz Expenses'[Quarter1]), 
+    'Viz Expenses'[Quarter1], 
+    , 
+    ASC, 
+    Skip
+)
+
