@@ -1,1 +1,8 @@
-[Avg Trans Threshold] = RELATED('Parameters'[Avg Trans Threshold])
+color max numeric = 
+IF(
+    [Rank] <= [MAX_rANK] * [Red], 1,  // 1 for Red (high risk)
+    IF([Rank] > 0.50 * [MAX_rANK], 3,  // 3 for Green (low risk)
+        2  // 2 for Yellow (medium risk)
+    )
+)
+
