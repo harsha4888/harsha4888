@@ -1,9 +1,4 @@
-color max numeric = 
-SWITCH(
-    TRUE(),
-    'Viz Expenses'[Avg_Trans] >= 27, 1,  // 1 for Red
-    'Viz Expenses'[Avg_Trans] >= 1.66, 2,  // 2 for Yellow
-    'Viz Expenses'[Avg_Trans] >= 0.80, 3,  // 3 for Green
-    3  // Default to Green (3)
-)
-
+Color Max =
+IF([Rank] <= [MAX_rANK] * [Red], "RED",
+    IF([Rank] > 0.50 * [MAX_rANK], "GREEN",
+        IF([Avg_Trans] >= [Avg Trans Threshold], "YELLOW", "GREEN")))
