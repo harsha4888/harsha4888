@@ -1,8 +1,8 @@
 color max = 
 SWITCH(
     TRUE(),
-    [Avg_Trans] >= [Color Threshold], "RED",
-    [Avg_Trans] >= [Color Threshold] * 0.0614, "YELLOW",  // Adjusting by the factor (1.66 / 27 = ~0.0614)
-    [Avg_Trans] >= [Color Threshold] * 0.0296, "GREEN",  // Adjusting by the factor (0.80 / 27 = ~0.0296)
+    [Avg_Trans] >= 27, "RED",  // Red for high-risk scores
+    [Avg_Trans] >= 1.66, "YELLOW",  // Yellow for mid-risk scores
+    [Avg_Trans] >= 0.80, "GREEN",  // Green for low-risk scores
     "GREEN"
 )
