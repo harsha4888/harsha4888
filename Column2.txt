@@ -1,4 +1,1 @@
-Color Max =
-IF([Rank] <= [MAX_rANK] * [Red], "RED",
-    IF([Rank] > 0.50 * [MAX_rANK], "GREEN",
-        IF([Avg_Trans] >= [Avg Trans Threshold], "YELLOW", "GREEN")))
+[Avg Trans Threshold] = RELATED('Parameters'[Avg Trans Threshold])
