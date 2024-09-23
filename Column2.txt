@@ -1,9 +1,9 @@
-color max new column = 
+color max numeric = 
 SWITCH(
     TRUE(),
-    'Viz Expenses'[Avg_Trans] >= 27, "RED",  // Red for high-risk scores
-    'Viz Expenses'[Avg_Trans] >= 1.66, "YELLOW",  // Yellow for mid-risk scores
-    'Viz Expenses'[Avg_Trans] >= 0.80, "GREEN",  // Green for low-risk scores
-    "GREEN"  // Default to green for low-risk
+    'Viz Expenses'[Avg_Trans] >= 27, 1,  // 1 for Red
+    'Viz Expenses'[Avg_Trans] >= 1.66, 2,  // 2 for Yellow
+    'Viz Expenses'[Avg_Trans] >= 0.80, 3,  // 3 for Green
+    3  // Default to Green (3)
 )
 
