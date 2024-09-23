@@ -1,12 +1,5 @@
+Avg_Trans = calculate(AVERAGE('Viz Expenses'[Overall_Tran_Risk_Score]), allexcept('Viz Expenses','Viz Expenses'[Merchant Country] ))
 
+color max = if([Rank]<= [MAX_rANK]*[Red],"RED",if([Rank]>.50*[MAX_rANK] ,"GREEN","YELLOW"))
 
-Debug Column = 
-IF(
-    [date_filtered] = 0, 
-    FORMAT('Viz Expenses'[Created Date], "YYYY-MM-DD"),
-    IF(
-        [date_filtered] = 1, 
-        FORMAT('Viz Expenses'[Payment Date], "YYYY-MM-DD"),
-        FORMAT('Viz Expenses'[Transaction Date], "YYYY-MM-DD")
-    )
-)
+MAX_rANK = MAXX(ALLSELECTED('Viz Expenses'[Merchant Country]),[Rank])
