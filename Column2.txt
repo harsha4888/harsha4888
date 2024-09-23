@@ -1,9 +1,9 @@
 color max numeric = 
 SWITCH(
     TRUE(),
-    CALCULATE(MIN('Viz Expenses'[Avg_Trans])) > 1.66 && CALCULATE(MAX('Viz Expenses'[Avg_Trans])) < 28, 1,  // 1 for Red (between 1.66 and 28)
-    CALCULATE(MIN('Viz Expenses'[Avg_Trans])) >= 0.80 && CALCULATE(MAX('Viz Expenses'[Avg_Trans])) <= 1.66, 2,  // 2 for Yellow (between 0.80 and 1.66)
-    CALCULATE(MAX('Viz Expenses'[Avg_Trans])) <= 0.80, 3,  // 3 for Green (less than or equal to 0.80)
+    'Viz Expenses'[Avg_Trans] > 1.66 && 'Viz Expenses'[Avg_Trans] < 28, 1,  // 1 for Red (between 1.66 and 28)
+    'Viz Expenses'[Avg_Trans] >= 0.80 && 'Viz Expenses'[Avg_Trans] <= 1.66, 2,  // 2 for Yellow (between 0.80 and 1.66)
+    'Viz Expenses'[Avg_Trans] <= 0.80, 3,  // 3 for Green (less than or equal to 0.80)
     3  // Default to Green (3)
 )
 
