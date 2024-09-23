@@ -1,8 +1,9 @@
-color max numeric = 
-IF(
-    [Rank] <= [MAX_rANK] * [Red], 1,  // 1 for Red (high risk)
-    IF([Rank] > 0.50 * [MAX_rANK], 3,  // 3 for Green (low risk)
-        2  // 2 for Yellow (medium risk)
-    )
+color max column = 
+SWITCH(
+    TRUE(),
+    'Viz Expenses'[Avg_Trans] > 1.66 && 'Viz Expenses'[Avg_Trans] <= 27, "YELLOW",  // Yellow for mid-risk scores (between 1.66 and 27)
+    'Viz Expenses'[Avg_Trans] > 0.80 && 'Viz Expenses'[Avg_Trans] <= 1.66, "GREEN",  // Green for scores between 0.80 and 1.66
+    'Viz Expenses'[Avg_Trans] <= 0.80, "GREEN",  // Green for low-risk scores (less than or equal to 0.80)
+    "GREEN"  // Default to green if none of the conditions are met
 )
 
