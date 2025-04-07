@@ -1,5 +1,13 @@
-TotalPayments = DISTINCTCOUNT('Viz GoldenPayments'[SPT_RowId])+0
 
-#hitPayments = CALCULATE([TotalPayments],'Viz GoldenPayments'[Tests_Failed_Count]>0) 
+
+HitPayments = CALCULATE(
+    DISTINCTCOUNT('Viz GoldenPayments'[SPT_RowId]),
+    'Viz GoldenPayments'[Tests_Failed_Count] > 0
+)
+
+TotalPayments = 
+DISTINCTCOUNT('Viz GoldenPayments'[SPT_RowId])
+
+
 
 
