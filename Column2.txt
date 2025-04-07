@@ -1,10 +1,5 @@
-Risk Color Code = 
-SWITCH(
-    TRUE(),
-    'Viz Expenses'[Avg_Trans] > 1.66 && 'Viz Expenses'[Avg_Trans] < 28, 1,  // 1 for Red (high risk)
-    'Viz Expenses'[Avg_Trans] >= 0.80 && 'Viz Expenses'[Avg_Trans] <= 1.66, 2,  // 2 for Yellow (medium risk)
-    'Viz Expenses'[Avg_Trans] <= 0.80, 3,  // 3 for Green (low risk)
-    3  // Default to Green (3)
-)
+TotalPayments = DISTINCTCOUNT('Viz GoldenPayments'[SPT_RowId])+0
+
+#hitPayments = CALCULATE([TotalPayments],'Viz GoldenPayments'[Tests_Failed_Count]>0) 
 
 
