@@ -1,14 +1,20 @@
 Selected Test Value = 
 VAR _field = SELECTEDVALUE('Testparameter'[Fields])
-RETURN
+VAR _result = 
     SWITCH(
         TRUE(),
-        _field = "FMTE0004", CALCULATE(MAX('viz expenses'[FMTE0004]), REMOVEFILTERS('Testparameter')),
-        _field = "FMTE0016", CALCULATE(MAX('viz expenses'[FMTE0016]), REMOVEFILTERS('Testparameter')),
-        _field = "FMTE0005", CALCULATE(MAX('viz expenses'[FMTE0005]), REMOVEFILTERS('Testparameter')),
-        // Add more conditions as needed for other TestID columns
-        0 // Default value if no conditions match
+        _field = "FMTE0004", CALCULATE(MAX('viz expenses'[FMTE0004]), ALLSELECTED('viz expenses')),
+        _field = "FMTE0016", CALCULATE(MAX('viz expenses'[FMTE0016]), ALLSELECTED('viz expenses')),
+        _field = "FMTE0005", CALCULATE(MAX('viz expenses'[FMTE0005]), ALLSELECTED('viz expenses')),
+        0
     )
+RETURN
+    IF(
+        NOT(ISBLANK(_result)),
+        _result,
+        BLANK()
+    )
+
 
 
 
