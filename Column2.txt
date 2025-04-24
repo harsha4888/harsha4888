@@ -1,12 +1,8 @@
-TestID_Mapped = 
-SWITCH (
-    TRUE(),
-    'viz_expenses'[SomeGroupColumn] = "Group_04", "FMTE004",
-    'viz_expenses'[SomeGroupColumn] = "Group_16", "FMTE016",
-    'viz_expenses'[SomeGroupColumn] = "Group_19", "FMTE019",
-    'viz_expenses'[SomeGroupColumn] = "Group_31", "FMTE031",
-    BLANK()
-)
+Selected Test Value = 
+VAR _field = SELECTEDVALUE('Testparameter'[Fields])
+RETURN
+    MAXX(VALUES('viz expenses'), _field)
+
 
 
 
