@@ -1,8 +1,14 @@
 Selected Test Value = 
 VAR _field = SELECTEDVALUE('Testparameter'[Fields])
 RETURN
-    MAXX(VALUES('viz expenses'), _field)
-
+    SWITCH(
+        TRUE(),
+        _field = "FMTE0004", MAX('viz expenses'[FMTE0004]),
+        _field = "FMTE0016", MAX('viz expenses'[FMTE0016]),
+        _field = "FMTE0005", MAX('viz expenses'[FMTE0005]),
+        // Add more conditions as needed for other TestID columns
+        0 // default value if none of the conditions match
+    )
 
 
 
